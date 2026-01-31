@@ -3,13 +3,12 @@ import os
 def main():
     fileName=input("Enter the name of file : ")
 
-    ret=os.path.exists(fileName)
+    ret=os.path.isabs(fileName)
     
     if(ret == True):
-        fobj=open(fileName,"r")
-        print("File gets successfully opend.")
+        print("It's Absolute Path.")
     else:
-        print("There is no such file. ")
+        print("It's Relative Path.")
     
 
 
