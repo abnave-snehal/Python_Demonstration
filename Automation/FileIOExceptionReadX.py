@@ -1,9 +1,11 @@
 def main():
     try:
-        fobj=open("Hello.txt","w")   # File object created
+        fobj=open("Hello.txt","r")   # file read
         print("File gets successfully opened.")
 
-        fobj.write("Jay Ganesh Marvellous...")
+        Data=fobj.read()
+
+        print("Data from file is : ",Data)
         
         fobj.close()
 

@@ -1,9 +1,9 @@
 def main():
     try:
-        fobj=open("Hello.txt","w")   # File object created
+        fobj=open("Hello.txt","a")   
         print("File gets successfully opened.")
 
-        fobj.write("Jay Ganesh Marvellous...")
+        fobj.write("Python Automation")
         
         fobj.close()
 
