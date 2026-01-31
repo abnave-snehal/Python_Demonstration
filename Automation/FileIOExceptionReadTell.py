@@ -3,9 +3,13 @@ def main():
         fobj=open("Hello.txt","r")   # file read
         print("File gets successfully opened.")
 
-        Data=fobj.read(6) # Only 6 character will read
+        print("Current offset is : ",fobj.tell())
+
+        Data=fobj.read(6)  # Hole file will read
 
         print("Data from file is : ",Data)
+
+        print("Current offset is : ",fobj.tell())
         
         fobj.close()
 

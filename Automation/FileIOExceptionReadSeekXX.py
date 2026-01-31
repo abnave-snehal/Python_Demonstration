@@ -1,9 +1,23 @@
+# seek(kuthe,kuthun)
+# kuthun: 0/1/2
+# 0: Starting
+# 1: Current
+# 2: End
+
 def main():
     try:
         fobj=open("Hello.txt","r")   # file read
         print("File gets successfully opened.")
 
-        Data=fobj.read(6) # Only 6 character will read
+        print("Current offset is : ",fobj.tell())  # 0
+
+        fobj.seek(6,1)
+
+        print("Current offset is : ",fobj.tell())  # 11
+
+        Data=fobj.read(6)  # Hole file will read
+
+        print("Current offset is : ",fobj.tell())  # 17
 
         print("Data from file is : ",Data)
         
