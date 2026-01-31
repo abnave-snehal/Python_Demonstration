@@ -14,12 +14,11 @@ class Arithmatic:
         ans=self.no1 - self.no2
         return ans
     
-obj1=Arithmatic(11,10)  # Arithematic
-obj2=Arithmatic(21,20)
+obj1=Arithmatic(11,10)  # Arithmatic(id(obj1),11,10) -> __init__(id(obj1),11,10)
+obj2=Arithmatic(21,20)  # Arithmatic(id(obj2),21,20) -> __init__(id(obj2),21,20)
 
-ret=obj1.Addition()
+ret=obj1.Addition()     # Addition(id(obj1))   -> Addition(1000)
+print("Addition is : ",ret)    #21
 
-print("Addition is : ",ret)
-
-ret=obj2.Subtraction()
-print("Subtraction is : ",ret)
+ret=obj2.Subtraction()  # Subtraction(id(obj2))    -> Subtraction(2000)
+print("Subtraction is : ",ret)      # 1

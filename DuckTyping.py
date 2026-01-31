@@ -1,7 +1,5 @@
 # Duck Typing : It is a concept where the type of an object is determined by it's behaviour
-
 # not by it's class
-
 
 class InkjetPrinter:
     def printdocument(self,docuemnt):

@@ -23,6 +23,6 @@ obj2=demo(21)
 print(11+21)        #32
 
 print(obj1 + obj2)  # __add__(obj1,obj2)
-print(obj1 - obj2)
-print(obj1 * obj2)
-print(obj1 / obj2)
+print(obj1 - obj2)  # __sub__(obj1,obj2)
+print(obj1 * obj2)  # __mul__(obj1,obj2)
+print(obj1 / obj2)  # __truediv__(obj1,obj2)
