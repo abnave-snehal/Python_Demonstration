@@ -5,13 +5,8 @@ def main():
 
     if(os.path.exists(fileName)):    
         ret=os.path.isabs(fileName)
-    
-        if(ret == True):
-            print("It's Absolute Path.")
-        else:
-            print("It's Relative Path.")
-            NewPath=os.path.abspath(fileName)
-            print("Updated path : ",NewPath)
+        os.remove(fileName)
+        print("File gets deleted.")
     else:
         print("There is no such file.")
 
