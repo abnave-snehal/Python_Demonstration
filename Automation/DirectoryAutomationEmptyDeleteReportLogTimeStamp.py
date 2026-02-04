@@ -10,7 +10,6 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
     LogFileName=LogFileName.replace(" ","_")
     LogFileName=LogFileName.replace(":","_")
     
-
     fobj=open(LogFileName,"w")
 
     fobj.write(Border+"\n")
@@ -18,14 +17,12 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
     fobj.write("This is a directory cleaner script\n")
     fobj.write(Border+"\n")
 
-    
     ret=False
 
     ret=os.path.exists(DirName)
     if(ret == False):
         print("There is no such directory.")
         return
-    
     
     ret=os.path.isdir(DirName)
     if(ret == False):
@@ -36,18 +33,13 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
     emptyFileCount=0
 
     for folderName,subFolder,fileName in os.walk(DirName):
-       
-
         for Fname in fileName:
             fileCount=fileCount+1
-
             Fname=os.path.join(folderName,Fname)
-
             if(os.path.getsize(Fname) == 0):   # Empty file
                 emptyFileCount=emptyFileCount+1
                 os.remove(Fname)
 
-    
     fobj.write("Total Files Scanned : "+str(fileCount)+"\n")
     fobj.write("Totla Empty Files Found : "+str(emptyFileCount)+"\n")
     fobj.write("This log file is created at : "+timestamp+"\n")

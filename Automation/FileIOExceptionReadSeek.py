@@ -9,7 +9,7 @@ def main():
 
         print("Current offset is : ",fobj.tell())  # 7
 
-        Data=fobj.read(10)  # Hole file will read
+        Data=fobj.read(10)
 
         print("Current offset is : ",fobj.tell())  # 17
 

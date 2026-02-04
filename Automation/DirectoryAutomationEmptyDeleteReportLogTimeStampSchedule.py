@@ -37,18 +37,13 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
     emptyFileCount=0
 
     for folderName,subFolder,fileName in os.walk(DirName):
-       
-
         for Fname in fileName:
             fileCount=fileCount+1
-
             Fname=os.path.join(folderName,Fname)
-
             if(os.path.getsize(Fname) == 0):   # Empty file
                 emptyFileCount=emptyFileCount+1
                 os.remove(Fname)
 
-    
     fobj.write("Total Files Scanned : "+str(fileCount)+"\n")
     fobj.write("Totla Empty Files Found : "+str(emptyFileCount)+"\n")
     fobj.write("This log file is created at : "+timestamp+"\n")

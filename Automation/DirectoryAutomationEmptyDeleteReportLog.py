@@ -3,7 +3,7 @@ import os
 
 def directoryScanner(DirName="Marvellous"):  # Default Argument
     Border="-"*50
-    fobj=open("Marvellous.log","w")
+    fobj=open("Snehal.log","w")
 
     fobj.write(Border+"\n")
     fobj.write("This is a log file created by Marvellous Automation\n")
@@ -18,7 +18,6 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
         print("There is no such directory.")
         return
     
-    
     ret=os.path.isdir(DirName)
     if(ret == False):
         print("It is not a directory.")
@@ -28,17 +27,12 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
     emptyFileCount=0
 
     for folderName,subFolder,fileName in os.walk(DirName):
-       
-
         for Fname in fileName:
             fileCount=fileCount+1
-
             Fname=os.path.join(folderName,Fname)
-
             if(os.path.getsize(Fname) == 0):   # Empty file
                 emptyFileCount=emptyFileCount+1
                 os.remove(Fname)
-
     
     fobj.write("Total Files Scanned : "+str(fileCount)+"\n")
     fobj.write("Totla Empty Files Found : "+str(emptyFileCount)+"\n")

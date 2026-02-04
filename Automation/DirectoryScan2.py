@@ -17,7 +17,6 @@ def DirectoryScanner(DirectoryName="Marvellous"):
         for fname in Filename:
             print("File name : ",fname)
 
-
 def main():
     DirectoryName=input("Enter the name of directory : ")
 

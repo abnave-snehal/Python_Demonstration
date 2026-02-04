@@ -29,9 +29,8 @@ def main():
         print("Invalid number of arguments:")
         print("Please sepcifiy the name of directory :")
         return
-
+    
     directoryScanner(sys.argv[1])
-
 
 if __name__ == "__main__":
     main()

@@ -20,7 +20,6 @@ def directoryScanner(DirName="Marvellous"):  # Default Argument
 
     for folderName,subFolder,fileName in os.walk(DirName):
        
-
         for Fname in fileName:
             fileCount=fileCount+1
 

@@ -9,9 +9,6 @@ def main():
         print("It's Absolute Path.")
     else:
         print("It's Relative Path.")
-    
-
-
 
 if __name__ == "__main__":
     main()

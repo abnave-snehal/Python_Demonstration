@@ -1,33 +1,33 @@
-# seek(kuthe,kuthun)
-# kuthun: 0/1/2
-# 0: Starting
-# 1: Current
-# 2: End
+# seek(Kuthe, Kuthun)
+# Kuthun : 0 / 1 / 2
+# 0 : Starting
+# 1 : Current
+# 2 : End
 
 def main():
     try:
-        fobj=open("Hello.txt","r")   # file read
-        print("File gets successfully opened.")
+        fobj = open("Hello.txt","r")
+        print("File gets succesfully opened")
 
-        print("Current offset is : ",fobj.tell())  # 0
+        print("Current offset is : ",fobj.tell())   # 0
 
         fobj.seek(6,1)
 
-        print("Current offset is : ",fobj.tell())  # 11
+        print("Current offset is : ",fobj.tell())   # 11
 
-        Data=fobj.read(6)  # Hole file will read
+        Data = fobj.read(6)
 
-        print("Current offset is : ",fobj.tell())  # 17
+        print("Current offset is : ",fobj.tell())   # 17
 
         print("Data from file is : ",Data)
-        
+
         fobj.close()
-
+    
     except FileNotFoundError:
-        print("Unable to open file as there is no such file.")
+        print("Unable to open file as there is no such file")
 
-    finally:  # finally is Optional 
+    finally:
         print("End of application")
-
+       
 if __name__ == "__main__":
     main()

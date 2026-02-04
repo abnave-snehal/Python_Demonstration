@@ -1,6 +1,5 @@
 import sys
 
-
 def main():
     border="-"*40
     print(border)
@@ -29,8 +28,8 @@ def main():
         print("--h : used to disply help")
 
     print(border)
-    print("----- Thank you for using our script -----")
-    print("--------- Marvellous Infosystems ---------")
+    print("---- Thank you for using our script ----")
+    print("-------- Marvellous Infosystems --------")
     print(border)
 
 if __name__ == "__main__":

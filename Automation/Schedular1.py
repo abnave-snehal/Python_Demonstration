@@ -2,11 +2,11 @@ import time
 import datetime
 
 def main():
-    print(time.time())
-    print(time.ctime())
+    print("1)",time.time())
+    
+    print("2)",time.ctime())
 
-    print(datetime.datetime.now())
-
+    print("3)",datetime.datetime.now())
 
 if __name__ == "__main__":
     main()
