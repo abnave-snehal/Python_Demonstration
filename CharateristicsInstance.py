@@ -1,5 +1,4 @@
 import gc   # Garbage Collector
-
 class demo:
     # class variable
     no1= 10

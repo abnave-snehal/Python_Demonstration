@@ -1,5 +1,4 @@
 import gc   # Garbage Collector
-
 class demo:
     def __init__(self):
         print("Inside constructor : ")
