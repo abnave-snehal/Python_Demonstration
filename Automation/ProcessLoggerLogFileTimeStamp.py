@@ -1,8 +1,8 @@
-#Command line input 
 
 import psutil
 import sys
 import os
+import time
 
 def createLog(folderName):
     ret=False
@@ -17,6 +17,13 @@ def createLog(folderName):
     else:
         os.mkdir(folderName)
         print("Directory for log file gets created succesfully: ")
+
+    timeStamp=time.strftime("%Y-%m-%d_%H-%M-%S")
+    FileName=os.path.join(folderName,"Marvellous_%s.log" %timeStamp)
+    print(FileName)
+
+    fobj=open(FileName,"w")
+    
         
 def main():
     border="-"*50

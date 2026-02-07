@@ -1,8 +1,9 @@
-#Command line input 
 
 import psutil
 import sys
 import os
+import time
+import schedule
 
 def createLog(folderName):
     ret=False
@@ -17,6 +18,13 @@ def createLog(folderName):
     else:
         os.mkdir(folderName)
         print("Directory for log file gets created succesfully: ")
+
+    timeStamp=time.strftime("%Y-%m-%d_%H-%M-%S")
+    FileName=os.path.join(folderName,"Marvellous_%s.log" %timeStamp)
+    print("Log file gets created with file name : ",FileName)
+
+    fobj=open(FileName,"w")
+    
         
 def main():
     border="-"*50
@@ -38,7 +46,7 @@ def main():
             print("Use the automation script as")
             print("ScriptNAme.py Timeinterval DirectoryName")
             print("TimeInterval : The time in minutes for periodic scheduling")
-            print("DirectoryName : Name of directory to create auto logs")
+            print("DirectoryName : Name of directory to create auto logs") 
 
         else:
             print("Unable to proceed as there is nno such option")
@@ -50,6 +58,19 @@ def main():
         print("Time interval : ",sys.argv[1])
         print("Directory name : ",sys.argv[2])
         createLog(sys.argv[2])
+
+        #Apply the scheduler
+        schedule.every(int(sys.argv[1])).minutes.do(createLog,sys.argv[2])
+
+        print("Platform surveillance system started sucessfully : ")
+        print("Direcotry created with name : ",sys.argv[2])
+        print("Time interval in minutes : ",sys.argv[1])
+        print("Press Ctrl + C to stop : ")
+
+        # wait till abort   
+        while True:
+            schedule.run_pending
+            time.sleep(1)
     else:
          print("Invalid number of command line arguments")
          print("Unable to proceed as there is nno such option")
