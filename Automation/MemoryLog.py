@@ -2,9 +2,10 @@ import psutil
 import sys
 import os
 import time
+import schedule
 
 def CreateLog(FolderName):
-
+    Border = "-"*50
     Ret = False
 
     Ret = os.path.exists(FolderName)
@@ -21,10 +22,26 @@ def CreateLog(FolderName):
 
     timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
     FileName = os.path.join(FolderName,"Marvellous_%s.log" %timestamp)
-    print(FileName)
+    print("Log file gets created with name : ",FileName)
 
     fobj = open(FileName, "w")
 
+    fobj.write(Border+"\n")
+    fobj.write("---- Marvellous Platform Surveillance System -----\n")
+    fobj.write("Log created at : "+time.ctime()+"\n")
+    fobj.write(Border+"\n")
+    
+    fobj.write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    
+    fobj.write(Border+"\n")
+    fobj.write("----------------- End of Log File ----------------\n")
+    fobj.write(Border+"\n")
+
+    print("CPU Usage : ",psutil.cpu_percent())
+
+    mem = psutil.virtual_memory()
+    print("RAM usage : ",mem.percent)
+    
 def main():
     Border = "-"*50
     print(Border)
@@ -57,7 +74,19 @@ def main():
         print("Inside projects logic")
         print("Time interval : ",sys.argv[1])
         print("Directory name : ",sys.argv[2])
-        CreateLog(sys.argv[2])
+
+        # Apply the schedular
+        schedule.every(int(sys.argv[1])).minutes.do(CreateLog, sys.argv[2])
+
+        print("Platform Surveillance System started succesfully")
+        print("Directory created with name : ",sys.argv[2])
+        print("Time interval in minutes: ",sys.argv[1])
+        print("Press Ctrl + C to stop the execution")
+
+        # Wait till abort
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
     else:
         print("Invalid number of command line arguments")
