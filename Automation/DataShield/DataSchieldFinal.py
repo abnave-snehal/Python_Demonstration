@@ -52,9 +52,12 @@ def BackupFiles(source,destination): #data,MarvellousBakup
     for root,dirs,files in os.walk(source):
         for file in files:
             src_path=os.path.join(root,file)
+            print("SRC", src_path)
 
             relative_path=os.path.relpath(src_path,source)
+            print("Relative",relative_path)
             dest_path=os.path.join(destination,relative_path)
+            print("Destination",dest_path)
 
             os.makedirs(os.path.dirname(dest_path),exist_ok=True)
 
