@@ -1,0 +1,5 @@
+List of three automation projects.
+
+1)Delete duplicate files
+2)Process Logger Project
+3)Copied one folder to back with another folder
