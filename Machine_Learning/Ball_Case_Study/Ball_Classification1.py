@@ -21,8 +21,6 @@ def main():
 
     labels=["Tennis","Tennis","Cricket","Tennis","Circekt","Tennis","Cricket","Tennis","Tennis","Tennis","Cricket","Tennis","Cricket","Tennis","Cricket"]
 
-
-
 if __name__ == "__main__":
     main()
 
