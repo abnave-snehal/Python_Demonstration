@@ -96,3 +96,35 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+###################################################################
+# Step 5: Split the dataset for training and testing
+###################################################################
+
+print(border)
+print("Step 5: Split the dataset for training & testing")
+print(border)
+
+# Total dataset=150,5
+# X:150,4
+# Y:150,1
+# Test size = 20%
+# Train size = 80%
+
+X_train,X_test,Y_train,Y_test=train_test_split(
+    X,
+    Y,
+    test_size=0.2,
+    train_size=0.8, # optional
+    random_state=42
+)
+
+print("Data splitting activity done : ")
+print("X - Independent : ",X.shape)  #(15,4)
+print("Y - Dependent : ",Y.shape)    #(150,)
+print("X_train : ",X_train.shape)    #(120,4)
+print("X_test : ",X_test.shape)      #(30,4) 
+print("Y_train : ",Y_train.shape)    #(120,)
+print("Y_test : ",Y_test.shape)      #(30,)
+
+
+
