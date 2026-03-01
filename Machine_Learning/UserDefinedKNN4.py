@@ -18,7 +18,7 @@ def MarvellousKNeighborClassifer():
     data=[
             {'point':'A','X':1,'Y':2,'label':'Red'},
             {'point':'B','X':2,'Y':3,'label':'Red'},
-            {'point':'C','X':3,'Y':3,'label':'Blue'},
+            {'point':'C','X':3,'Y':1,'label':'Blue'},
             {'point':'D','X':5,'Y':6,'label':'Blue'}
         ]
     
@@ -37,12 +37,25 @@ def MarvellousKNeighborClassifer():
 
     new_point={'X':3,'Y':3}
 
-    print(data[0])
-    print(new_point)
+    # calculate all distances
+    for d in data:
+        d['distance']=EucDistance(d,new_point)
 
-    result=EucDistance(data[0],new_point)
+    print(border)
+    print("Calcualted distances are : ")
+    print(border)
 
-    print(result)
+    for d in data:
+        print(d)
+
+    sorted_data=sorted(data,key=lambda item:item['distance'])
+
+    print(border)
+    print("Sorted Data is : ")
+    print(border)
+    
+    for d in sorted_data:
+        print(d)
 
 def main():
 
