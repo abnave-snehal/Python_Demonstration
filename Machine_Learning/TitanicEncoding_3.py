@@ -1,201 +1,200 @@
 import pandas as pd
 import numpy as np
 import joblib
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score,confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 #--------------------------------------------------------
-# Function name :DisplayInfo
-# Description :It display the formated title
-# Parameters :title(str)
-# Return :None
-# Date :14/03/2026
-# Auther :Snehal Abnave
+#   Function name : DisplayInfo
+#   Description :   It displays the formated title
+#   Parameters :    title (str)
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
 #--------------------------------------------------------
 
 def DisplayInfo(title):
-   print("\n"+"="*70)
-   print(title)
-   print("="*70)
+    print("\n" + "="*70)
+    print(title)
+    print("="*70)
 
 #--------------------------------------------------------
-# Function name :ShowData()
-# Description:It shows basic information about the dataset.
-# Parameters :df df -> Pandas dataframe object
-#             message message -> Heading text to disply 
-# Return :None
-# Date :14/03/2026
-# Auther :Snehal Abnave
+#   Function name : ShowData
+#   Description :   It shows basic information about dataset
+#   Parameters :    df
+#                   df ->       Pandas dataframe object 
+#                   message
+#                   message ->  Heading text to display
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
 #--------------------------------------------------------
+
 def ShowData(df,message):
-   DisplayInfo(message)
+    DisplayInfo(message)
 
-   print("First 5 rows of dataset")
-   print(df.head())
+    print("\nFirst 5 rows of dataset")
+    print(df.head())
 
-   print("\n Shape of dataset")
-   print(df.shape)
+    print("\nShape of dataset")
+    print(df.shape)
 
-   print("\n Column names : ")
-   print(df.columns.tolist())
+    print("\nColumn names : ")
+    print(df.columns.tolist())
 
-   print("\n Missing values in each column : ")
-   print(df.isnull().sum())
+    print("\nMissing values in each column")
+    print(df.isnull().sum())
 
 #--------------------------------------------------------
-# Function name :CleanTitanicData
-# Description :It does preprocessing, 
-#              It removed unnecessary columns
-#              It handles missing values, 
-#              It converts text data to numeric format
-#              It does encoding to categorical columns
-# Parameters :df -> Pandas dataframe
-# Return :    df -> Clean pandas dataset 
-# Date :14/03/2026
-# Auther :Snehal Abnave
+#   Function name : CleanTitanicData
+#   Description :   It does preprocessing
+#                   It removed unnecessary columns
+#                   It handales missing values
+#                   It converts text data to numeric format
+#                   It does encoding to categorical columns
+#   Parameters :    df ->   Pandas dataframe
+#   Return :        df ->   Clean Pandas dataframe
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
 #--------------------------------------------------------
 
 def CleanTitanicData(df):
-   DisplayInfo("Step 2: Original Data")
-   print(df.head())
+    DisplayInfo("Step 2 : Original Data")
+    print(df.head())
 
-   # Remove unnecessary columns
-   drop_columns=["Passengerid","zero","Name","Cabin"]
-   existing_columns=[col for col in drop_columns if col in df.columns]
+    # Remove unnecessary columns
+    drop_columns = ["Passengerid","zero","Name","Cabin"]
+    existing_columns = [col for col in drop_columns if col in df.columns]
 
-   print("\n Columns to be droped : ")
-   print(existing_columns)
+    print("\n Columns to be dropped : ")
+    print(existing_columns)
 
-   # drop unwanted columns
-   df=df.drop(columns=existing_columns)
+    # drop the unwated columns
+    df = df.drop(columns = existing_columns)
+    DisplayInfo("Step 2 : Data after columns removal")
+    print(df.head())
 
+    # Handle age column
+    if "Age" in df.columns:
+        print("Age column before filling missing values")
+        print(df["Age"].head(10))
 
-   DisplayInfo("Step 2: Data after column removed")
-   print(df.head())
-   
+        # coerce -> Invalid value gets converted as NaN
+        df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
 
-   # Handle afe columns
-   if "Age" in df.columns:
-      print("Age column before filling missing values")
-      print(df["Age"].head(10))
+        age_median = df["Age"].median()
+        
+        # Replace missing values with median
+        df["Age"] = df["Age"].fillna(age_median)
 
+        print("\nAge column after preprocessing : ")
+        print(df["Age"].head(10))
 
-      #Coerce-> Invalid value gets converted into NaN
-      df["Age"]=pd.to_numeric(df["Age"],errors="coerce")
+    # Handle fare column
+    if "Fare" in df.columns:
+        print("\n Fare column before preprocessing")
+        print(df["Fare"].head(10))
 
-      age_median=df["Age"].median()
+        df["Fare"] = pd.to_numeric(df["Fare"], errors="coerce")
+    
+        fare_median = df["Fare"].median()
+        
+        print("\n Meadian of fare column is : ",fare_median)
 
-      #Replaced missing values with median
-      df["Age"]=df["Age"].fillna(age_median)
+        # Replace missing values with median
+        df["Fare"] = df["Fare"].fillna(fare_median)
+        
+        print("\Fare column after preprocessing : ")
+        print(df["Fare"].head(10))
+    
+    # Handle Embarked column
+    if "Embarked" in df.columns:
+        print("\n Embarked column before preprocessing")
+        print(df["Embarked"].head(10))
 
-      print("\n Age column after preprocessing :")
-      print(df["Age"].head(10))
+        # convert the data into string
+        df["Embarked"] = df["Embarked"].astype(str).str.strip()
 
-      # Handle fare column
-   if "Fare" in df.columns:
-      print("\n Fare column before preprocessing")
-      print(df["Fare"].head(10))
+        # Remove missing values
+        df["Embarked"] = df["Embarked"].replace(['nan','None',''],np.nan)
 
-      df["Fare"]=pd.to_numeric(df["Fare"],errors="coerce")
+        # Get most frequent value
+        embarked_mode = df["Embarked"].mode()[0]
+        print("\nMode of embarked column : ",embarked_mode)
 
-      fare_median=df["Fare"].median()
+        df["Embarked"] = df["Embarked"].fillna(embarked_mode)
 
-      print("\n Median of fare columns is : ",fare_median)
+        print("\Embarked column after preprocessing : ")
+        print(df["Embarked"].head(10))
 
-      #Replace missing values with median
-      df["Fare"]=df["Fare"].fillna(fare_median)
+    # Handle Sex column
+    if "Sex" in df.columns:
+        print("\n Sex column before preprocessing")
+        print(df["Sex"].head(10))
 
-      print("\n Fare column after preprocessing :")
-      print(df["Fare"].head(10))
+        df["Sex"] = pd.to_numeric(df["Sex"], errors="coerce")
+    
+        print("\Sex column after preprocessing : ")
+        print(df["Sex"].head(10))
 
-   # Handle embarked columns
-   if "Embarked" in df.columns:
-      print("\n Embarked column before preprocessing")
-      print(df["Embarked"].head(10))
+    DisplayInfo("Data after preprocessing")
+    print(df.head())
 
-      # Convert the data into string
-      df["Embarked"]=df["Embarked"].astype(str).str.strip()
+    print("\nMissing values after preprocessing")
+    print(df.isnull().sum())
+    
+    #Encode Embraked column
+    df = pd.get_dummies(df,columns=["Embarked"],drop_first=True)
+    print("\n Data after encoding")
 
-      # Remove missing values
-      df["Embarked"] = df["Embarked"].replace(['nan','None',''],np.nan)
+    print(df.head())
 
-      # Get most frequent values
-      embarked_mode=df["Embarked"].mode()[0]
-      print("\n Mode of embarked columns : ",embarked_mode)
+    print("Shape of dataset : ",df.shape)
 
-      print("\n embarked columns after preprocessing :")
-      print(df["Embarked"].head(10))
+    # convert boolean columns into integer
+    for col in df.columns:
+        if df[col].dtype == bool:
+            df[col] = df[col].astype(int)
 
-    # Handle sex column
-   if "Sex" in df.columns:
-      print("\n sex column before preprocessing")
-      print(df["Sex"].head(10))
+    print("\n Data after encoding")
 
-      df["Sex"]=pd.to_numeric(df["Sex"],errors="coerce")
+    print(df.head())
 
-      print("\n Sex columns after preprocessing :")
-      print(df["Sex"].head(10))
-
-   DisplayInfo("Data after preprocessing")
-   print(df.head(10))
-
-   print("\n Missing values after preprocessing")
-   print(df.isnull().sum())
-
-
-   # Encode Embarked column
-   df=pd.get_dummies(df,columns=["Embarked"],drop_first=True)
-   print("\n Data after encoding")
-
-   print(df.head())
-
-   print("Shape of dataset : ",df.shape)
-
-   # convert boolean columns into integer
-   for col in df.columns:
-      if df[col].dtype==bool:
-         df[col]=df[col].astype(int)
-   
-   print("\n Data after encoding")
-
-   print(df.head())
-
-   
-   return df
+    return df
 
 #--------------------------------------------------------
-# Function name :MarvellousTitanicLogistic
-# Description :This is main pipeline controller it loads
-#              the dataset,show rows data,it preprocess
-#              dataset &train the model
-# Parameters :Datapath of dataset file
-# Return :None
-# Date :14/03/2026
-# Auther :Snehal Abnave
+#   Function name : MarvellousTitanicLogistic
+#   Description :   This is main pipeline controller
+#                   It loads the dataset, shows raw data
+#                   It preprocess the dataset & train the model
+#   Parameters :    Data path of dataset file
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
 #--------------------------------------------------------
 
-def MarvellousTitanicLogistic(Datapath):
-   DisplayInfo("Step 1: Loading the dataset")
+def MarvellousTitanicLogistic(DataPath):
+    DisplayInfo("Step 1 : Loading the dataset")
+    df = pd.read_csv(DataPath)
 
-   df=pd.read_csv(Datapath)
+    ShowData(df,"Initial dataset")
 
-   ShowData(df,"Initial dataset")
+    df = CleanTitanicData(df)
 
-   df=CleanTitanicData(df)
 
 #--------------------------------------------------------
-# Function name :main
-# Description :String point of the application
-# Parameters :None
-# Return :None
-# Date :14/03/2026
-# Auther :Snehal Abnave
+#   Function name : main
+#   Description :   Starting point of the application
+#   Parameters :    None
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
 #--------------------------------------------------------
 
 def main():
- MarvellousTitanicLogistic("MarvellousTitanicDataset.csv")
+    MarvellousTitanicLogistic("MarvellousTitanicDataset.csv")
 
-    
 if __name__ == "__main__":
     main()

@@ -6,6 +6,38 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
 
+
+#--------------------------------------------------------
+#   Function name : LoadPreservedModel
+#   Description :   It is used to load preserved model
+#   Parameters :    filename
+#   Return :        model
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
+#--------------------------------------------------------
+
+def LoadPreservedModel(filename):
+
+    loaded_model = joblib.load(filename)
+
+    print("Model succesfully loaded")
+
+    return loaded_model
+
+#--------------------------------------------------------
+#   Function name : PreserveModel
+#   Description :   It is used to preserve model on secondary
+#   Parameters :    model, filename
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
+#--------------------------------------------------------
+
+def PreserveModel(model,filename):
+    joblib.dump(model,filename)
+
+    print("Model preserved sucesfully with name : ",filename)
+
 #--------------------------------------------------------
 #   Function name : TrainTitanicModel
 #   Description :   It does split X, Y, tarinning data ,testing data
@@ -47,6 +79,21 @@ def TrainTitanicModel(df):
     print("\nCoeeficent of model")
     for feature,coeficent in zip(X.columns, model.coef_[0]):
         print(feature, " : ", coeficent)
+
+    PreserveModel(model,"marvelloustitanic.pkl")
+
+    loaded_model = LoadPreservedModel("marvelloustitanic.pkl")
+
+    Y_pred = loaded_model.predict(X_test)
+
+    accuracy = accuracy_score(Y_pred,Y_test)
+
+    print("Accuracy is : ",accuracy)
+
+    cm = confusion_matrix(Y_pred,Y_test)
+
+    print("Confustion matrix is : ")
+    print(cm)
 
 #--------------------------------------------------------
 #   Function name : DisplayInfo

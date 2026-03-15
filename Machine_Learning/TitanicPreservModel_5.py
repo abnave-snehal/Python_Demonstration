@@ -7,6 +7,20 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix
 
 #--------------------------------------------------------
+#   Function name : PreserveModel
+#   Description :   It is used to preserve model on secondary
+#   Parameters :    model, filename
+#   Return :        None
+#   Date :          14/03/2026
+#   Author :        Piyush Manohar Khairnar
+#--------------------------------------------------------
+
+def PreserveModel(model,filename):
+    joblib.dump(model,filename)
+
+    print("Model preserved sucesfully with name : ",filename)
+
+#--------------------------------------------------------
 #   Function name : TrainTitanicModel
 #   Description :   It does split X, Y, tarinning data ,testing data
 #   Parameters :    df
@@ -47,6 +61,8 @@ def TrainTitanicModel(df):
     print("\nCoeeficent of model")
     for feature,coeficent in zip(X.columns, model.coef_[0]):
         print(feature, " : ", coeficent)
+
+    PreserveModel(model,"marvelloustitanic.pkl")
 
 #--------------------------------------------------------
 #   Function name : DisplayInfo
